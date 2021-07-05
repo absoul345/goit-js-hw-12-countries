@@ -1,8 +1,10 @@
 import '../sass/main.css';
 import countryOneCard from '../templates/country-one-card.hbs';
 import countryCards from '../templates/country-cards';
-var debounce = require('lodash.debounce');
-const { alert, notice, info, success, error } = require('@pnotify/core');
+import debounce from 'lodash.debounce';
+import '@pnotify/core/dist/PNotify.css';
+import '@pnotify/core/dist/BrightTheme.css';
+import { alert, notice, info, success, error } from '@pnotify/core';
 import API from './fetch-api.js';
 import getRefs from './get-refs.js';
 
@@ -14,6 +16,9 @@ function onSearch(e) {
     e.preventDefault();
     clearArticlesContainer();
     const searchInput = e.target.value;
+    if (!searchInput) {
+        return;
+    }
     API.fatchCountry(searchInput).then(renderCountry).catch(onFetchError);
 }
 
